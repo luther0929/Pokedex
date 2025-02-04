@@ -1,6 +1,10 @@
 import tinycolor from 'tinycolor2';
 import useFetchPokemonData from './utils/hooks/useFetchPokemonData.jsx';
 import { capitalize } from './utils/utils.jsx';
+import { useFadeInOut, useWiggle } from './utils/animations.jsx';
+import { animated } from 'react-spring';
+import loadingImage from './assets/pokeball.png';
+import errorImage from './assets/error.png';
 
 export default function PokemonList({pokemons, onPokemonClick}){
 
@@ -77,12 +81,27 @@ export default function PokemonList({pokemons, onPokemonClick}){
         else return "#" + str;
     }
 
+    const fadeInOut = useFadeInOut(400);
+    const wiggle = useWiggle();
+
     if (!pokemons || colors === 0 || sprites === 0 || types.length === 0 || Ids.length === 0){
-        return <p>Loading list...</p>
+        return(
+            <div className="flex flex-col items-center justify-center w-screen text-gray-800 h-36 lg:w-1/3 lg:h-screen">
+                <animated.img style={wiggle} className='w-12' src={loadingImage} alt='loading'/>
+                <animated.p style={fadeInOut}>Loading list...</animated.p>
+            </div>
+        )
+        
     }
 
     if (spritesError || colorsError || typesError || idsError){
-        return <p>Error:{spritesError}{colorsError}{typesError}{idsError}</p>
+        return(
+            <div className='flex flex-col items-center justify-center w-full lg:w-64'>
+                <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
+                <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
+                <p className='lg:text-2xl'>The page crash!</p>
+            </div>
+        )
     }
 
     return(

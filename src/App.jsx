@@ -61,46 +61,53 @@ export default function App() {
     console.log(pokemon);
   }, [pokemon]);
 
+  if(isLoading){
+    return(
+      <div className='flex items-center justify-center h-screen'>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  if(error){
+    return(
+      <p>Error: {error.message}</p>
+    )
+  }
+
   return (
     <Router>
       <div className='lg:px-2 bg-yellow-50'>
-        {isLoading ? (
-          <p>Loading data...</p>
-          ) : error ? (
-            <p>Error: {error.message}</p>
-          ) : (
-            <div className='flex flex-col w-full h-full lg:flex-row'>
-              <div className='flex flex-col m-4 bg-white border lg:m-4 lg:w-3/5 drop-shadow-lg rounded-xl'>
-                <Image pokemon = {pokemon}/>
-                <nav className='flex flex-row justify-around my-4'>
-                  <NavLink 
-                    to='/about'
-                    className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : "text-gray-400")
-                  }>About</NavLink>
-                  
-                  <NavLink 
-                    to='/stats'
-                    className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : ("text-gray-400")) 
-                  }>Stats</NavLink>
+        <div className='flex flex-col w-full h-full lg:flex-row'>
+          <div className='flex flex-col m-4 bg-white border lg:m-4 lg:w-3/5 drop-shadow-lg rounded-xl'>
+            <Image pokemon = {pokemon}/>
+            <nav className='flex flex-row justify-around my-4'>
+              <NavLink 
+                to='/about'
+                className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : "text-gray-400")
+              }>About</NavLink>
+              
+              <NavLink 
+                to='/stats'
+                className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : ("text-gray-400")) 
+              }>Stats</NavLink>
 
-                  <NavLink 
-                    to='/evolution'
-                    className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : ("text-gray-400")) 
-                  }>Evolution</NavLink>
-                </nav>
+              <NavLink 
+                to='/evolution'
+                className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : ("text-gray-400")) 
+              }>Evolution</NavLink>
+            </nav>
 
-                <Routes>
-                  <Route path="/" element={<Navigate to="/about" />} />
-                  <Route path='/about' element={<About pokemon={pokemon}/>}/>
-                  <Route path='/stats' element={<Stats pokemon={pokemon}/>}/>
-                  <Route path='/evolution' element={<Evolution pokemon={pokemon}/>}/>
-                </Routes>
-              </div>
+            <Routes>
+              <Route path="/" element={<Navigate to="/about" />} />
+              <Route path='/about' element={<About pokemon={pokemon}/>}/>
+              <Route path='/stats' element={<Stats pokemon={pokemon}/>}/>
+              <Route path='/evolution' element={<Evolution pokemon={pokemon}/>}/>
+            </Routes>
+          </div>
 
-                <PokemonList pokemons={pokemons} onPokemonClick={handlePokemonClick}/>
-            </div>
-          )}
-        
+            <PokemonList pokemons={pokemons} onPokemonClick={handlePokemonClick}/>
+        </div>
       </div>
     </Router>
     
