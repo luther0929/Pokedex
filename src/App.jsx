@@ -6,6 +6,7 @@ import About from './About.jsx';
 import Stats from './Stats.jsx';
 import Evolution from './Evolution.jsx';
 import PokemonList from './PokemonList.jsx';
+import errorImage from './assets/error.png';
 
 export default function App() {
 
@@ -57,9 +58,9 @@ export default function App() {
     setPokemmonId(id);
   }
 
-  useEffect(()=>{
-    console.log(pokemon);
-  }, [pokemon]);
+  // useEffect(()=>{
+  //   console.log(pokemon);
+  // }, [pokemon]);
 
   if(isLoading){
     return(
@@ -71,13 +72,17 @@ export default function App() {
 
   if(error){
     return(
-      <p>Error: {error.message}</p>
+      <div className='flex flex-col items-center justify-center w-full h-screen m-2 '>
+          <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
+          <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
+          <p className='lg:text-2xl'>The page crash!</p>
+      </div>
     )
   }
 
   return (
     <Router>
-      <div className='lg:px-2 bg-yellow-50'>
+      <div className='h-screen lg:px-2 bg-yellow-50'>
         <div className='flex flex-col w-full h-full lg:flex-row'>
           <div className='flex flex-col m-4 bg-white border lg:m-4 lg:w-3/5 drop-shadow-lg rounded-xl'>
             <Image pokemon = {pokemon}/>
@@ -102,7 +107,7 @@ export default function App() {
               <Route path="/" element={<Navigate to="/about" />} />
               <Route path='/about' element={<About pokemon={pokemon}/>}/>
               <Route path='/stats' element={<Stats pokemon={pokemon}/>}/>
-              <Route path='/evolution' element={<Evolution pokemon={pokemon}/>}/>
+              <Route path='/evolution' element={<Evolution pokemon={pokemon} onPokemonClick={handlePokemonClick}/>}/>
             </Routes>
           </div>
 

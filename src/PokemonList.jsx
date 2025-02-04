@@ -105,20 +105,20 @@ export default function PokemonList({pokemons, onPokemonClick}){
     }
 
     return(
-        <div className="flex flex-row w-screen overflow-y-scroll text-gray-800 h-1/2 lg:w-1/3 lg:h-screen lg:flex-col ">
+        <div className="flex flex-row w-screen overflow-y-scroll text-gray-800 h-34 lg:w-1/3 lg:h-screen lg:flex-col ">
             {pokemons.results.map((pokemon, index) => {
                 const capitalizedName = capitalize(pokemon.name)
                 return(
                     <div className="flex justify-between m-4 rounded-lg border-1 drop-shadow-xl"key={pokemon.name} onClick={() => onPokemonClick(index+1)} style={{backgroundColor: lightenColor(colors[index])}}>
-                        <div className='w-20 lg:w-1/3'>
-                            <div className='flex flex-col-reverse justify-between m-2 lg:flex-row'>
-                                <h1 className='lg:text-2xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
-                                <h1 className='mr-6 lg:text-2xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{capitalizedName}</h1>
+                        <div className='w-30 lg:w-1/3'>
+                            <div className='justify-between m-2 lg:flex-row'>
+                                <h1 className='text-xl font-bold text-white opacity-60 lg:text-2xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
+                                <h1 className='text-lg mr-6 lg:text-2xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{capitalizedName}</h1>
                             </div>
                             
-                            <div className='flex flex-row justify-start gap-2 m-4 drop-shadow-lg'>
+                            <div className='flex flex-row w-32 gap-2 m-4'>
                                 {types[index].map((type) => {
-                                    return <p className="hidden w-full p-1 text-center text-white rounded-lg lg:block border-1" key={type} style={{backgroundColor: getTypeColor(type)}}>{type}</p>
+                                    return <p className="hidden p-1 text-center text-white rounded-lg w-15 lg:block border-1" key={type} style={{backgroundColor: getTypeColor(type)}}>{type}</p>
                                 })}
                             </div>
                         </div>

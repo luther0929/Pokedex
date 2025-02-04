@@ -8,6 +8,10 @@ export const useFetchEvolutionChain = (pokemon) => {
         const fetchData = async() => {
             try{
                 setIsLoading(true);
+                if (!pokemon || !pokemon.species || !pokemon.species.url) { 
+                    setIsLoading(false); 
+                    return;
+                }
                 const speciesResp = await fetch(pokemon.species.url); //fetch species
                 if (!speciesResp.ok){
                     throw new Error(`Failed to fetch species: ${speciesResp.status}`)
