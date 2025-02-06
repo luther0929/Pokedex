@@ -1,9 +1,9 @@
 import tinycolor from 'tinycolor2';
 import useFetchPokemonData from './utils/hooks/useFetchPokemonData.jsx';
 import { capitalize } from './utils/utils.jsx';
-import { useFadeInOut, useWiggle } from './utils/animations.jsx';
+import { useFadeIn, useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import loadingImage from './assets/pokeball.png';
 import errorImage from './assets/error.png';
 
@@ -82,14 +82,15 @@ export default function Menu({pokemons}){
         else return "#" + str;
     }
 
-    // const navigate = useNavigate;
+    const navigate = useNavigate();
 
-    // const handleClick = (pokemonId) => {
-    //     navigate("/profile/about");
-    // }
+    const handlePokemonClick = (pokemonId) => {
+        navigate(`/profile/about`, { state: { pokemonId } })
+    }
 
     const fadeInOut = useFadeInOut(400);
     const wiggle = useWiggle();
+    const fadeIn = useFadeIn();
 
     if (!pokemons || colors.length === 0 || sprites.length === 0 || types.length === 0 || Ids.length === 0){
         return(
@@ -112,14 +113,19 @@ export default function Menu({pokemons}){
     }
 
     return(
-        <div className="grid w-screen h-screen grid-cols-3 gap-4 p-4 text-gray-800 bg-yellow-50 lg:p-10 lg:gap-10 lg:grid-cols-4">
+        <animated.div 
+            className="grid w-screen h-screen grid-cols-3 gap-4 p-4 text-gray-800 lg:p-10 lg:gap-10 lg:grid-cols-4"
+            style={fadeIn}
+        >
             {pokemons.results.map((pokemon, index) => {
                 const capitalizedName = capitalize(pokemon.name)
-                const pokemonId = Ids[index]; 
                 return(
-                    <Link to={`/profile/${pokemonId}`} key={pokemon.name} >
-                    <div className="flex flex-col px-2 py-1 rounded-lg lg:w-55 lg:p-4 border-1 drop-shadow-lg"key={pokemon.name} style={{backgroundColor: lightenColor(colors[index])}}>
-                        
+                    <div 
+                        className="flex flex-col px-2 py-1 rounded-lg cursor-pointer lg:w-55 lg:p-4 border-1 drop-shadow-lg"
+                        key={pokemon.name} 
+                        style={{backgroundColor: lightenColor(colors[index])}}
+                        onClick={() => handlePokemonClick(Ids[index])}
+                    >
                         <div className="bg-white border rounded-full drop-shadow-md">
                             <img src={sprites[index]} alt={pokemon.name}/>
                         </div>
@@ -127,14 +133,19 @@ export default function Menu({pokemons}){
 
                         <div className='flex flex-row justify-center gap-1 m-1 lg:gap-4 lg:m-4'>
                             {types[index].map((type) => {
-                                return <p className="p-1 text-xs text-center text-white rounded-lg lg:p-2 lg:text-2xl w-15 border-1 lg:w-24" key={type} style={{backgroundColor: getTypeColor(type)}}>{type}</p>
+                                return <p
+                                        className="p-1 text-xs text-center text-white rounded-lg w-15 lg:px-2 lg:text-2xl border-1 lg:w-24"
+                                        key={type}
+                                        style={{backgroundColor: getTypeColor(type)}}
+                                        >
+                                            {type}
+                                        </p>
                             })}
                         </div>
                         <h1 className='text-center pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
                     </div>
-                    </Link>
                 )
             })}
-        </div>
+        </animated.div>
     )
 }

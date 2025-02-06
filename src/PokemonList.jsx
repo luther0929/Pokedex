@@ -105,11 +105,11 @@ export default function PokemonList({pokemons, onPokemonClick}){
     }
 
     return(
-        <div className="flex flex-row w-screen overflow-y-scroll text-gray-800 h-34 lg:w-1/3 lg:h-screen lg:flex-col ">
+        <div className="flex flex-row w-screen overflow-y-scroll text-gray-800 h-30 lg:w-1/3 lg:h-screen lg:flex-col ">
             {pokemons.results.map((pokemon, index) => {
                 const capitalizedName = capitalize(pokemon.name)
                 return(
-                    <div className="flex justify-between m-4 rounded-lg border-1 drop-shadow-xl"key={pokemon.name} onClick={() => onPokemonClick(index+1)} style={{backgroundColor: lightenColor(colors[index])}}>
+                    <div className="flex justify-between m-2 rounded-lg border-1 drop-shadow-xl"key={pokemon.name} onClick={() => onPokemonClick(index+1)} style={{backgroundColor: lightenColor(colors[index])}}>
                         <div className='w-30 lg:w-1/3'>
                             <div className='justify-between m-2 lg:flex-row'>
                                 <h1 className='text-xl font-bold text-white opacity-60 lg:text-2xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
@@ -122,7 +122,7 @@ export default function PokemonList({pokemons, onPokemonClick}){
                                 })}
                             </div>
                         </div>
-                        <div className="w-24 bg-white border rounded-l-full lg:w-1/3 drop-shadow-md">
+                        <div className="w-24 bg-white border-l rounded-r-lg rounded-l-3xl lg:w-1/3 drop-shadow-md">
                             <img src={sprites[index]} alt={pokemon.name}/>
                         </div>
                     </div>

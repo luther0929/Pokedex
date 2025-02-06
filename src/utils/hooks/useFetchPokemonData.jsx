@@ -7,7 +7,7 @@ export default function useFetchPokemonData(pokemons, endpointBuilder, dataExtra
     useEffect(() => {
         const fetchData = async() => {
             try{
-                if (!pokemons || !pokemons.results || pokemons.results.length === 0) {
+                if (!pokemons?.results?.length) {
                     setData([]); 
                     return;
                 }

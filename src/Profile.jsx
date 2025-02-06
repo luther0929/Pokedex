@@ -5,16 +5,18 @@ import Stats from './Stats.jsx';
 import Evolution from './Evolution.jsx';
 import PokemonList from './PokemonList.jsx';
 import errorImage from './assets/error.png';
-import { BrowserRouter as Route, Routes, NavLink, Navigate  } from 'react-router-dom';
+import { useLocation, Route, Routes, NavLink, Navigate  } from 'react-router-dom';
 import loadingImage from './assets/pokeball.png';
 import { useFadeIn, useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring'
+import { FaArrowLeft } from 'react-icons/fa';
 
-export default function Profile({pokemons, id}){
+export default function Profile({pokemons}){
 
+    const location = useLocation();
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [pokemonId, setPokemmonId] = useState(id);
+    const [pokemonId, setPokemmonId] = useState(location.state?.pokemonId || 1);
     const [pokemon, setPokemon] = useState(null);
 
     useEffect(()=>{
@@ -64,9 +66,9 @@ export default function Profile({pokemons, id}){
     }
 
     return (
-            <animated.div style={fadeIn} className='h-screen lg:px-2 bg-yellow-50'>
+            <animated.div style={fadeIn} className='h-screen px-2'>
             <div className='flex flex-col w-full h-full lg:flex-row'>
-                <div className='flex flex-col m-4 bg-white border lg:m-4 lg:w-3/5 drop-shadow-lg rounded-xl'>
+                <div className='flex flex-col mx-2 mt-2 bg-white border lg:m-4 lg:w-4/5 drop-shadow-lg rounded-xl'>
                 <Image pokemon = {pokemon}/>
                 <nav className='flex flex-row justify-around my-4'>
                     <NavLink 

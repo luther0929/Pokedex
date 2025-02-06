@@ -4,12 +4,10 @@ import Profile from './Profile';
 import Menu from './Menu';
 import errorImage from './assets/error.png'
 import loadingImage from './assets/pokeball.png';
+import logo from './assets/logo.png';
 import { useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring';
-import { BrowserRouter as Router, Route, Routes, NavLink, Navigate, Outlet} from 'react-router-dom';
-import About from './About.jsx';
-import Stats from './Stats.jsx';
-import Evolution from './Evolution.jsx';
+import { BrowserRouter as Router, Route, Routes, NavLink, Navigate} from 'react-router-dom';
 
 export default function App() {
 
@@ -40,10 +38,6 @@ export default function App() {
   const fadeInOut = useFadeInOut();
   const wiggle = useWiggle();
 
-  useEffect(()=>{
-    console.log(pokemons)
-  }, [pokemons])
-
   if(isLoading){
       return(
           <div className='flex flex-col items-center justify-center h-screen gap-2'>
@@ -65,22 +59,20 @@ export default function App() {
 
   return(
     <Router>
-      <nav>
+      <nav className='flex items-center w-screen bg-red-400 border-b-2 h-15 '>
         <NavLink 
           to='/menu'
-          className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : "text-gray-400")
-        }>Menu</NavLink>
+          className="w-screen mx-4 text-3xl font-semibold text-yellow-200 lg:mx-10 align-center"
+        >
+          <img className='w-2/5 lg:w-42' src={logo} alt='Pokedex logo'/>
+        </NavLink>
 
-        <NavLink
-        to='/profile'
-        className={({isActive}) => (isActive ? ("underline underline-offset-12 font-semibold") : "text-gray-400")
-        }>Profile</NavLink>
       </nav>
 
       <Routes>
         <Route path="/" element={<Navigate to="/menu" />} />
         <Route path='/menu' element={<Menu pokemons={pokemons}/>}/>
-        <Route path='/profile/*' element={<Profile pokemons={pokemons} id={1}/>}/>
+        <Route path='/profile/*' element={<Profile pokemons={pokemons}/>}/>
       </Routes>
     </Router>
   )
