@@ -5,8 +5,9 @@ import { useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring';
 import loadingImage from './assets/pokeball.png';
 import errorImage from './assets/error.png';
+import {useState, useEffect} from 'react';
 
-export default function PokemonList({pokemons, onPokemonClick}){
+export default function Menu({pokemons}){
 
     const { data: sprites, error: spritesError } = useFetchPokemonData(
         pokemons,
@@ -84,9 +85,9 @@ export default function PokemonList({pokemons, onPokemonClick}){
     const fadeInOut = useFadeInOut(400);
     const wiggle = useWiggle();
 
-    if (!pokemons || colors === 0 || sprites === 0 || types.length === 0 || Ids.length === 0){
+    if (!pokemons || colors.length === 0 || sprites.length === 0 || types.length === 0 || Ids.length === 0){
         return(
-            <div className="flex flex-col items-center justify-center w-screen text-gray-800 h-36 lg:w-1/3 lg:h-screen">
+            <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 h-36 lg:w-1/3 lg:h-screen">
                 <animated.img style={wiggle} className='w-12' src={loadingImage} alt='loading'/>
                 <animated.p style={fadeInOut}>Loading list...</animated.p>
             </div>
@@ -96,7 +97,7 @@ export default function PokemonList({pokemons, onPokemonClick}){
 
     if (spritesError || colorsError || typesError || idsError){
         return(
-            <div className='flex flex-col items-center justify-center w-full lg:w-64'>
+            <div className='flex flex-col items-center justify-center w-full h-screen lg:w-64'>
                 <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
                 <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
                 <p className='lg:text-2xl'>The page crash!</p>
@@ -105,29 +106,26 @@ export default function PokemonList({pokemons, onPokemonClick}){
     }
 
     return(
-        <div className="flex flex-row w-screen overflow-y-scroll text-gray-800 h-34 lg:w-1/3 lg:h-screen lg:flex-col ">
+        <div className="grid w-screen h-screen grid-cols-3 gap-4 p-4 text-gray-800 bg-yellow-50 lg:p-10 lg:gap-10 lg:grid-cols-4">
             {pokemons.results.map((pokemon, index) => {
                 const capitalizedName = capitalize(pokemon.name)
                 return(
-                    <div className="flex justify-between m-4 rounded-lg border-1 drop-shadow-xl"key={pokemon.name} onClick={() => onPokemonClick(index+1)} style={{backgroundColor: lightenColor(colors[index])}}>
-                        <div className='w-30 lg:w-1/3'>
-                            <div className='justify-between m-2 lg:flex-row'>
-                                <h1 className='text-xl font-bold text-white opacity-60 lg:text-2xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
-                                <h1 className='text-lg mr-6 lg:text-2xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{capitalizedName}</h1>
-                            </div>
-                            
-                            <div className='flex flex-row w-32 gap-2 m-4'>
-                                {types[index].map((type) => {
-                                    return <p className="hidden p-1 text-center text-white rounded-lg w-15 lg:block border-1" key={type} style={{backgroundColor: getTypeColor(type)}}>{type}</p>
-                                })}
-                            </div>
-                        </div>
-                        <div className="w-24 bg-white border rounded-l-full lg:w-1/3 drop-shadow-md">
+                    <div className="flex flex-col px-2 py-1 rounded-lg lg:w-55 lg:p-4 border-1 drop-shadow-lg"key={pokemon.name} onClick={() => onPokemonClick(index+1)} style={{backgroundColor: lightenColor(colors[index])}}>
+                        
+                        <div className="bg-white border rounded-full drop-shadow-md">
                             <img src={sprites[index]} alt={pokemon.name}/>
                         </div>
+                        <h1 className='text-center lg:text-3xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{capitalizedName}</h1>
+
+                        <div className='flex flex-row justify-center gap-1 m-1 lg:gap-4 lg:m-4'>
+                            {types[index].map((type) => {
+                                return <p className="p-1 text-xs text-center text-white rounded-lg lg:p-2 lg:text-2xl w-15 border-1 lg:w-24" key={type} style={{backgroundColor: getTypeColor(type)}}>{type}</p>
+                            })}
+                        </div>
+                        <h1 className='text-center pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
                     </div>
                 )
-            } )}
+            })}
         </div>
-    );
+    )
 }
