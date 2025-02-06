@@ -80,7 +80,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/menu" />} />
         <Route path='/menu' element={<Menu pokemons={pokemons}/>}/>
-        <Route path='/profile/*' element={<Profile pokemons={pokemons}/>}/>
+        <Route path='/profile/*' element={<Profile pokemons={pokemons} id={1}/>}/>
       </Routes>
     </Router>
   )

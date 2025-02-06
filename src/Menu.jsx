@@ -3,9 +3,9 @@ import useFetchPokemonData from './utils/hooks/useFetchPokemonData.jsx';
 import { capitalize } from './utils/utils.jsx';
 import { useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring';
+import { useNavigate, Link } from 'react-router-dom';
 import loadingImage from './assets/pokeball.png';
 import errorImage from './assets/error.png';
-import {useState, useEffect} from 'react';
 
 export default function Menu({pokemons}){
 
@@ -82,6 +82,12 @@ export default function Menu({pokemons}){
         else return "#" + str;
     }
 
+    // const navigate = useNavigate;
+
+    // const handleClick = (pokemonId) => {
+    //     navigate("/profile/about");
+    // }
+
     const fadeInOut = useFadeInOut(400);
     const wiggle = useWiggle();
 
@@ -109,8 +115,10 @@ export default function Menu({pokemons}){
         <div className="grid w-screen h-screen grid-cols-3 gap-4 p-4 text-gray-800 bg-yellow-50 lg:p-10 lg:gap-10 lg:grid-cols-4">
             {pokemons.results.map((pokemon, index) => {
                 const capitalizedName = capitalize(pokemon.name)
+                const pokemonId = Ids[index]; 
                 return(
-                    <div className="flex flex-col px-2 py-1 rounded-lg lg:w-55 lg:p-4 border-1 drop-shadow-lg"key={pokemon.name} onClick={() => onPokemonClick(index+1)} style={{backgroundColor: lightenColor(colors[index])}}>
+                    <Link to={`/profile/${pokemonId}`} key={pokemon.name} >
+                    <div className="flex flex-col px-2 py-1 rounded-lg lg:w-55 lg:p-4 border-1 drop-shadow-lg"key={pokemon.name} style={{backgroundColor: lightenColor(colors[index])}}>
                         
                         <div className="bg-white border rounded-full drop-shadow-md">
                             <img src={sprites[index]} alt={pokemon.name}/>
@@ -124,6 +132,7 @@ export default function Menu({pokemons}){
                         </div>
                         <h1 className='text-center pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
                     </div>
+                    </Link>
                 )
             })}
         </div>

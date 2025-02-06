@@ -5,16 +5,16 @@ import Stats from './Stats.jsx';
 import Evolution from './Evolution.jsx';
 import PokemonList from './PokemonList.jsx';
 import errorImage from './assets/error.png';
-import { BrowserRouter as Router, Route, Routes, NavLink, Navigate  } from 'react-router-dom';
+import { BrowserRouter as Route, Routes, NavLink, Navigate  } from 'react-router-dom';
 import loadingImage from './assets/pokeball.png';
 import { useFadeIn, useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring'
 
-export default function Profile({pokemons}){
+export default function Profile({pokemons, id}){
 
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [pokemonId, setPokemmonId] = useState(1);
+    const [pokemonId, setPokemmonId] = useState(id);
     const [pokemon, setPokemon] = useState(null);
 
     useEffect(()=>{
@@ -64,7 +64,6 @@ export default function Profile({pokemons}){
     }
 
     return (
-      
             <animated.div style={fadeIn} className='h-screen lg:px-2 bg-yellow-50'>
             <div className='flex flex-col w-full h-full lg:flex-row'>
                 <div className='flex flex-col m-4 bg-white border lg:m-4 lg:w-3/5 drop-shadow-lg rounded-xl'>
