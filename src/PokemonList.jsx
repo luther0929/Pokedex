@@ -105,7 +105,7 @@ export default function PokemonList({pokemons, onPokemonClick}){
     }
 
     return(
-        <div className="flex flex-row w-screen overflow-y-scroll text-gray-800 h-30 lg:w-1/3 lg:h-screen lg:flex-col ">
+        <div className="flex flex-row w-screen pt-2 overflow-y-scroll text-gray-800 h-30 lg:w-1/3 lg:h-screen lg:flex-col ">
             {pokemons.results.map((pokemon, index) => {
                 const capitalizedName = capitalize(pokemon.name)
                 return(

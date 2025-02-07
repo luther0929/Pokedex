@@ -94,7 +94,7 @@ export default function Menu({pokemons}){
 
     if (!pokemons || colors.length === 0 || sprites.length === 0 || types.length === 0 || Ids.length === 0){
         return(
-            <div className="flex flex-col items-center justify-center w-screen h-screen text-gray-800 h-36 lg:w-1/3 lg:h-screen">
+            <div className="flex flex-col items-center justify-center w-screen h-screen pt-16 text-gray-800 h-36 lg:screen lg:h-screen">
                 <animated.img style={wiggle} className='w-12' src={loadingImage} alt='loading'/>
                 <animated.p style={fadeInOut}>Loading list...</animated.p>
             </div>
@@ -104,7 +104,7 @@ export default function Menu({pokemons}){
 
     if (spritesError || colorsError || typesError || idsError){
         return(
-            <div className='flex flex-col items-center justify-center w-full h-screen lg:w-64'>
+            <div className='flex flex-col items-center justify-center w-full h-screen pt-16'>
                 <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
                 <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
                 <p className='lg:text-2xl'>The page crash!</p>
@@ -114,7 +114,7 @@ export default function Menu({pokemons}){
 
     return(
         <animated.div 
-            className="grid w-screen h-screen grid-cols-3 gap-4 p-4 text-gray-800 lg:p-10 lg:gap-10 lg:grid-cols-4"
+            className="grid w-full h-full grid-cols-3 gap-4 pt-20 mx-auto text-gray-800 lg:pt-26 max-w-9/10 lg:gap-15 justify-self-center lg:grid-cols-4"
             style={fadeIn}
         >
             {pokemons.results.map((pokemon, index) => {
@@ -131,10 +131,10 @@ export default function Menu({pokemons}){
                         </div>
                         <h1 className='text-center lg:text-3xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{capitalizedName}</h1>
 
-                        <div className='flex flex-row justify-center gap-1 m-1 lg:gap-4 lg:m-4'>
+                        <div className='flex flex-row justify-center gap-1 mt-1 lg:gap-4 lg:mt-4'>
                             {types[index].map((type) => {
                                 return <p
-                                        className="p-1 text-xs text-center text-white rounded-lg w-15 lg:px-2 lg:text-2xl border-1 lg:w-24"
+                                        className="p-1 text-xs text-center text-white rounded-lg w-14 lg:px-2 lg:text-2xl border-1 lg:w-24"
                                         key={type}
                                         style={{backgroundColor: getTypeColor(type)}}
                                         >
@@ -142,7 +142,7 @@ export default function Menu({pokemons}){
                                         </p>
                             })}
                         </div>
-                        <h1 className='text-center pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
+                        <h1 className='text-center lg:pt-2 pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
                     </div>
                 )
             })}

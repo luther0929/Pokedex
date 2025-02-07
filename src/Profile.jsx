@@ -9,7 +9,6 @@ import { useLocation, Route, Routes, NavLink, Navigate  } from 'react-router-dom
 import loadingImage from './assets/pokeball.png';
 import { useFadeIn, useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring'
-import { FaArrowLeft } from 'react-icons/fa';
 
 export default function Profile({pokemons}){
 
@@ -48,7 +47,7 @@ export default function Profile({pokemons}){
 
     if(isLoading){
         return(
-            <div className='flex flex-col items-center justify-center h-screen gap-2'>
+            <div className='flex flex-col items-center justify-center h-screen gap-2 pt-16'>
                 <animated.img style={wiggle} className='w-12' src={loadingImage} alt='loading'/>
                 <animated.p style={fadeInOut}>Loading</animated.p>
             </div>
@@ -57,7 +56,7 @@ export default function Profile({pokemons}){
 
     if(error){
         return(
-            <div className='flex flex-col items-center justify-center w-full h-screen m-2 '>
+            <div className='flex flex-col items-center justify-center w-full h-screen pt-16'>
                 <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
                 <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
                 <p className='lg:text-2xl'>The page crash!</p>
@@ -66,7 +65,7 @@ export default function Profile({pokemons}){
     }
 
     return (
-            <animated.div style={fadeIn} className='h-screen px-2'>
+            <animated.div style={fadeIn} className='h-screen px-2 pt-16 lg:h-1/2'>
             <div className='flex flex-col w-full h-full lg:flex-row'>
                 <div className='flex flex-col mx-2 mt-2 bg-white border lg:m-4 lg:w-4/5 drop-shadow-lg rounded-xl'>
                 <Image pokemon = {pokemon}/>
