@@ -8,33 +8,11 @@ import logo from './assets/logo.png';
 import { useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring';
 import { BrowserRouter as Router, Route, Routes, NavLink, Navigate} from 'react-router-dom';
+import { useFetchPokemonData } from './utils/hooks/useFetchPokemonData.jsx';
 
 export default function App() {
-
-  const [pokemons, setPokemons] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const pokemonCount = 151;
-
-  useEffect(()=>{
-    const fetchPokemons = async() =>{
-      try{
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${pokemonCount}`);
-        if(!response.ok){
-          throw new Error('Unable to fetch pokemon list')
-        }
-        const data = await response.json();
-        setPokemons(data);
-        setIsLoading(false);
-      }
-      catch(error){
-        setError(error.message);
-        setIsLoading(false);
-      }
-    }
-    fetchPokemons();
-  }, [])
-
+  const { data: pokemons, isLoading, error } = useFetchPokemonData(pokemonCount, 3);
   const fadeInOut = useFadeInOut();
   const wiggle = useWiggle();
 
@@ -52,6 +30,7 @@ export default function App() {
           <div className='flex flex-col items-center justify-center w-full h-screen m-2 '>
               <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
               <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
+              <p>{error}</p>
               <p className='lg:text-2xl'>The page crash!</p>
           </div>
       )

@@ -1,37 +1,13 @@
 import tinycolor from 'tinycolor2';
-import useFetchPokemonData from './utils/hooks/useFetchPokemonData.jsx';
 import { capitalize } from './utils/utils.jsx';
-import { useFadeIn, useFadeInOut, useWiggle } from './utils/animations.jsx';
 import { animated } from 'react-spring';
 import { useNavigate } from 'react-router-dom';
-import loadingImage from './assets/pokeball.png';
-import errorImage from './assets/error.png';
 
 export default function Menu({pokemons}){
-
-    const { data: sprites, error: spritesError } = useFetchPokemonData(
-        pokemons,
-        (pokemon) => (pokemon.url),
-        (data) => (data.sprites.other['official-artwork'].front_default)
-    )
-
-    const { data: colors, error: colorsError } = useFetchPokemonData(
-        pokemons,
-        (pokemon) => (`https://pokeapi.co/api/v2/pokemon-species/${pokemon.name}/`),
-        (data) => data.color.name
-    )
-
-    const { data: types, error: typesError } = useFetchPokemonData(
-        pokemons,
-        (pokemon) => (`https://pokeapi.co/api/v2/pokemon/${pokemon.name}/`),
-        (data) => (data.types.map((type) => type.type.name))
-    )
-
-    const { data: Ids, error: idsError } = useFetchPokemonData(
-        pokemons,
-        (pokemon) => (`https://pokeapi.co/api/v2/pokemon/${pokemon.name}/`),
-        (data) => (data.id)
-    )
+    
+    // useEffect(()=>{
+    //     console.log(pokemons);
+    // })
 
     const lightenColor = (colorName) => {
         if (colorName === "green" || colorName === "purple" ){
@@ -88,51 +64,30 @@ export default function Menu({pokemons}){
         navigate(`/profile/about`, { state: { pokemonId } })
     }
 
-    const fadeInOut = useFadeInOut(400);
-    const wiggle = useWiggle();
-    const fadeIn = useFadeIn();
-
-    if (!pokemons || colors.length === 0 || sprites.length === 0 || types.length === 0 || Ids.length === 0){
-        return(
-            <div className="flex flex-col items-center justify-center w-screen h-screen pt-16 text-gray-800 h-36 lg:screen lg:h-screen">
-                <animated.img style={wiggle} className='w-12' src={loadingImage} alt='loading'/>
-                <animated.p style={fadeInOut}>Loading list...</animated.p>
-            </div>
-        )
-        
-    }
-
-    if (spritesError || colorsError || typesError || idsError){
-        return(
-            <div className='flex flex-col items-center justify-center w-full h-screen pt-16'>
-                <img className='w-24 h-24 lg:w-40 lg:h-40' src={errorImage} alt='error'/>
-                <p className='font-bold text-red-500 lg:text-2xl'>Error fetching data</p>
-                <p className='lg:text-2xl'>The page crash!</p>
-            </div>
-        )
-    }
-
     return(
         <animated.div 
             className="grid w-full h-full grid-cols-3 gap-4 pt-20 mx-auto text-gray-800 lg:pt-26 max-w-9/10 lg:gap-15 justify-self-center lg:grid-cols-4"
-            style={fadeIn}
         >
-            {pokemons.results.map((pokemon, index) => {
+            {pokemons?.map((pokemon) => {
                 const capitalizedName = capitalize(pokemon.name)
                 return(
                     <div 
                         className="flex flex-col px-2 py-1 rounded-lg cursor-pointer lg:w-55 lg:p-4 border-1 drop-shadow-lg"
                         key={pokemon.name} 
-                        style={{backgroundColor: lightenColor(colors[index])}}
-                        onClick={() => handlePokemonClick(Ids[index])}
+                        style={{backgroundColor: lightenColor(pokemon.color)}}
+                        onClick={() => handlePokemonClick(pokemon.id)}
                     >
                         <div className="bg-white border rounded-full drop-shadow-md">
-                            <img src={sprites[index]} alt={pokemon.name}/>
+                            <img 
+                                src={pokemon.sprite}
+                                alt={pokemon.name}
+                                loading="lazy"
+                            />
                         </div>
                         <h1 className='text-center lg:text-3xl font-bold text-white [text-shadow:_1px_1px_1px_rgb(0_0_0)]'>{capitalizedName}</h1>
 
                         <div className='flex flex-row justify-center gap-1 mt-1 lg:gap-4 lg:mt-4'>
-                            {types[index].map((type) => {
+                            {pokemon.types.map((type) => {
                                 return <p
                                         className="p-1 text-xs text-center text-white rounded-lg w-14 lg:px-2 lg:text-2xl border-1 lg:w-24"
                                         key={type}
@@ -142,7 +97,7 @@ export default function Menu({pokemons}){
                                         </p>
                             })}
                         </div>
-                        <h1 className='text-center lg:pt-2 pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(Ids[index])}</h1>
+                        <h1 className='text-center lg:pt-2 pr-1 text-lg font-bold text-white opacity-60 lg:text-3xl [text-shadow:_2px_2px_2px_rgb(0_0_0)]'>{adjustId(pokemon.id)}</h1>
                     </div>
                 )
             })}
