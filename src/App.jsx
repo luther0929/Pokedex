@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react';
 import './App.css';
 import Profile from './Profile';
 import Menu from './Menu';

@@ -4,7 +4,8 @@ export const useFadeIn = () => {
     return(
         useSpring({
         from: {opacity:0},
-        to: {opacity:1}
+        to: {opacity:1},
+        reset: true
         })
     )
 }

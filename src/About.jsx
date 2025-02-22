@@ -13,10 +13,10 @@ export default function About({pokemon}){
                 <p className='col-span-4 '>{pokemon.types.map((type) => capitalize(type)).join(', ')}</p>
 
                 <p className='col-span-1 text-gray-400'>Height</p>
-                <p className='col-span-4'>{pokemon.height}</p>
+                <p className='col-span-4'>{pokemon.height} m</p>
 
                 <p className='col-span-1 text-gray-400'>Weight</p>
-                <p className='col-span-4'>{pokemon.weight}</p>
+                <p className='col-span-4'>{pokemon.weight} kg</p>
 
                 <p className='col-span-1 text-gray-400'>Abilities</p>
                 <p className='col-span-4'>{pokemon.abilities.map((ability) => capitalize(ability)).join(', ')}</p>

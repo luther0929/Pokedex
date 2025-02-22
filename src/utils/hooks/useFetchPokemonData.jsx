@@ -36,7 +36,7 @@ export function useFetchPokemonData(limit=151, maxRetries=3){
                     return;
                 }
     
-                const pokemonData = await Promise.all(pokemonsData.results.map(async(pokemon) => { //fetches each pokemon's basic data
+                const pokemonData = await Promise.all(pokemonsData.results.map(async(pokemon) => { //fetches each pokemon's data
                     const basicResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}/`, { signal }); //attaches the abort controller
                     if (!basicResponse.ok){
                         throw new Error(`Failed to fetch pokemon basic data: ${basicResponse.status}`);
@@ -52,7 +52,7 @@ export function useFetchPokemonData(limit=151, maxRetries=3){
                     const evolutionChainResponse = await fetch(specieData.evolution_chain.url, { signal });
                     const evolutionChainData = await evolutionChainResponse.json();
 
-                    const getEvolutionChainNames = (chain) => {
+                    const getEvolutionChainNames = (chain) => { //recursive function to get each pokemon name on the evolution chain
                         const names = [chain.species.name];
                         if (chain.evolves_to.length > 0){
                             chain.evolves_to.forEach((evolution) => {
@@ -63,7 +63,8 @@ export function useFetchPokemonData(limit=151, maxRetries=3){
                     };
 
                     const evolutionChainNames = getEvolutionChainNames(evolutionChainData.chain);
-                    const evolutionChain = await Promise.all(evolutionChainNames.map(async(name) => {
+
+                    const evolutionChain = await Promise.all(evolutionChainNames.map(async(name) => { //fetch pokemon object to create an array of pokemons on the evolution chain
                         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`, {signal});
                         if (!response.ok){
                             throw new Error(`Failed to fetch Pokemon evolution chain data: ${response.status}`);
@@ -106,7 +107,7 @@ export function useFetchPokemonData(limit=151, maxRetries=3){
 
                 if (retryCount < maxRetries){ //retry mechanism with exponential backoff
                     retryCount++;
-                    const delay = Math.min(1000 * Math.pow(2, retryCount), 10000);
+                    const delay = Math.min(1000 * Math.pow(2, retryCount), 10000); //exponential delays per retry
                     setTimeout(attemptFetch, delay);
                 } else {
                     setState({
