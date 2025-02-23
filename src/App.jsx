@@ -37,7 +37,7 @@ export default function App() {
 
   return(
     <Router>
-      <nav className='fixed flex items-center w-screen h-16 bg-red-400 border-b-2 z-1 '>
+      <nav className='fixed flex items-center w-screen h-16 bg-red-400 border-b z-1 '>
         <NavLink 
           to='/menu'
           className="w-screen mx-4 text-3xl font-semibold text-yellow-200 lg:mx-10 align-center"

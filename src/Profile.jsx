@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from './Image.jsx';
 import About from './About.jsx';
 import Stats from './Stats.jsx';
@@ -13,6 +13,7 @@ export default function Profile({pokemons}){
     const location = useLocation();
     const [pokemonId, setPokemmonId] = useState(location.state?.pokemonId || 1);
     const pokemon = pokemons.find(pokemon => pokemon.id === pokemonId);
+    
     const fadeIn = useFadeIn();
 
     const handlePokemonClick = (id) => {
@@ -20,9 +21,9 @@ export default function Profile({pokemons}){
     }
 
     return (
-            <animated.div style={fadeIn} className='h-screen px-2 pt-16 lg:h-1/2'>
+            <div  className='h-screen px-2 pt-16 lg:h-1/2'>
             <div className='flex flex-col w-full h- lg:h-180 lg:flex-row'>
-                <div className='flex flex-col mx-2 mt-2 bg-white border lg:m-4 lg:w-4/5 drop-shadow-lg rounded-xl'>
+                <animated.div style={fadeIn} className='flex flex-col mx-2 mt-2 bg-white border lg:m-4 lg:w-4/5 drop-shadow-lg rounded-xl'>
                 <Image pokemon = {pokemon}/>
                 <nav className='flex flex-row justify-around my-4'>
                     <NavLink 
@@ -47,10 +48,10 @@ export default function Profile({pokemons}){
                     <Route path='stats' element={<Stats pokemon={pokemon}/>}/>
                     <Route path='evolution' element={<Evolution pokemon={pokemon} pokemons={pokemons} onPokemonClick={handlePokemonClick}/>}/>
                 </Routes>
-                </div>
+                </animated.div>
 
                 <PokemonList pokemons={pokemons} onPokemonClick={handlePokemonClick}/>
             </div>
-            </animated.div>
+            </div>
     )
 }

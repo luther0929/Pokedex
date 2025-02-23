@@ -8,6 +8,12 @@ export default function Menu({pokemons}){
 
     const [filteredPokemons, setFilteredPokemons] = useState(pokemons);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredPokemons.slice(indexOfFirstItem, indexOfLastItem);
 
     // useEffect(() => {
     //   console.log(filteredPokemons);
@@ -23,20 +29,20 @@ export default function Menu({pokemons}){
             );
             setFilteredPokemons(result);
         }
+        setCurrentPage(1);
     }, [searchTerm, pokemons]);
 
-    const transitions = useTransition(filteredPokemons, {
-        from: { opacity: 0, transform: 'scale(0.9)' },
+    const transitions = useTransition(currentItems, {
+        from: { opacity: 0.1, transform: 'scale(0.9)' },
         enter: { opacity: 1, transform: 'scale(1)' },
         leave: { 
-            opacity: 0, 
-            transform: 'scale(0.9)', 
-            position: 'absolute', 
-            zIndex: -1, 
             pointerEvents: 'none',
-            width: 0,
+            position: 'absolute',
+            immediate: true,
+            opacity: 0,
             height: 0,
-            overflow: 'hidden'
+            width: 0,
+            overflow: 'hidden', 
         },
         keys: pokemon => pokemon.id,
         trail: 0,
@@ -44,8 +50,10 @@ export default function Menu({pokemons}){
             tension: 300, 
             friction: 20,
             // Make the enter animation faster
-            duration: 200 
-        }
+            duration: 300 
+        },
+        expires: true,
+        delay: 0,
     });
 
     const lightenColor = (colorName) => {
@@ -109,28 +117,46 @@ export default function Menu({pokemons}){
 
     return(
         <>
+        <div className="flex justify-center gap-4 py-8 pt-20 lg:pt-24">
+            <button 
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="w-24 px-4 py-2 text-white bg-red-400 rounded-lg disabled:bg-gray-300"
+            >
+                Previous
+            </button>
+            <span className="flex items-center">
+                Page {currentPage}
+            </span>
+            <button 
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                disabled={currentPage * itemsPerPage >= filteredPokemons.length}
+                className="w-24 px-4 py-2 text-white bg-red-400 rounded-lg disabled:bg-gray-300"
+            >
+                Next
+            </button>
+        </div>
         <div className='fixed right-0 w-2/5 m-2 bg-white border rounded-md z-2 top-4 lg:w-1/5 lg:mr-8'>
             <input
                 type='text'
                 placeholder='Search...'
                 value={searchTerm}
                 onChange={handleSearchChange}
-                onInput={handleSearchChange}
-                className='w-full pl-2 '
+                className='w-full pl-1'
             />
         </div>
 
-        <div className="relative grid w-full h-full grid-cols-3 gap-4 pt-20 mx-auto text-gray-800 lg:pt-26 max-w-9/10 lg:gap-15 justify-self-center lg:grid-cols-4">
+        <div className="relative grid w-full h-full grid-cols-3 gap-4 text-gray-800 lg:pt-12 max-w-9/10 lg:gap-15 justify-self-center lg:grid-cols-4">
             {transitions((style, pokemon) => {
                 const capitalizedName = capitalize(pokemon.name);
                 return (
                     <animated.div
                         style={{...style, backgroundColor: lightenColor(pokemon.color)}}
-                        className="flex flex-col px-2 py-1 rounded-lg cursor-pointer lg:w-55 lg:p-4 border-1 drop-shadow-lg"
+                        className="flex flex-col px-2 py-1 rounded-lg cursor-pointer h-45 lg:h-full lg:w-55 lg:p-4 border-1 drop-shadow-lg lg:justify-self-center"
                         key={pokemon.name} 
                         onClick={() => handlePokemonClick(pokemon.id)}
                     >
-                        <div className="bg-white border rounded-full drop-shadow-md">
+                        <div className="mx-auto bg-white border rounded-full w-22 lg:w-full">
                             <img 
                                 src={pokemon.sprite}
                                 alt={pokemon.name}
@@ -154,6 +180,25 @@ export default function Menu({pokemons}){
                     </animated.div>
                 )
             })}
+        </div>
+        <div className="relative bottom-0 flex justify-center gap-4 py-8 ">
+            <button 
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="w-24 px-4 py-2 text-white bg-red-400 rounded-lg disabled:bg-gray-300"
+            >
+                Previous
+            </button>
+            <span className="flex items-center">
+                Page {currentPage}
+            </span>
+            <button 
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                disabled={currentPage * itemsPerPage >= filteredPokemons.length}
+                className="w-24 px-4 py-2 text-white bg-red-400 rounded-lg disabled:bg-gray-300"
+            >
+                Next
+            </button>
         </div>
         </>
     )
