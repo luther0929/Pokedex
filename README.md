@@ -48,6 +48,6 @@ git clone https://github.com/luther0929/Pokedex.git
 cd Pokedex
 npm install
 npm run dev
-
+```
 <img width="2444" height="1330" alt="image" src="https://github.com/user-attachments/assets/55c7341d-c0df-45b9-9565-604cbb3fb6c5" />
 
