@@ -7,7 +7,7 @@ While the code might not be perfect, I took time to make it **visually clean and
 
 ---
 
-## 🌐 Live Demo
+## Live Demo :)
 [![Live Demo](https://pokedex-luther.netlify.app)](https://pokedex-luther.netlify.app)
 
 *(Replace the above link with your actual Netlify deployment URL once deployed.)*
