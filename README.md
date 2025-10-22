@@ -5,11 +5,9 @@ A simple **Pokédex web app** built with **React**, **Vite**, and **TailwindCSS*
 This project was one of my early experiments in React development, focusing on **API fetching**, **component rendering**, and **responsive styling**.  
 While the code might not be perfect, I took time to make it **visually clean and polished** — it represents my first hands-on milestone in frontend development.
 
----
+**👀 Live Demo:** [pokedex-luther.netlify.app](https://pokedex-luther.netlify.app)
 
-## Live Demo :)
-[pokedex-luther.netlify.app](https://pokedex-luther.netlify.app)
-
+<img src="./src/assets/pokedex.gif" width="1000" alt="Pokedex Demo"/>
 
 ---
 
@@ -48,5 +46,4 @@ cd Pokedex
 npm install
 npm run dev
 ```
-<img width="2444" height="1330" alt="image" src="https://github.com/user-attachments/assets/55c7341d-c0df-45b9-9565-604cbb3fb6c5" />
 
