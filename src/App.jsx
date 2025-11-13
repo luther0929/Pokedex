@@ -1,6 +1,4 @@
 import './App.css';
-import Profile from './Profile';
-import Menu from './Menu';
 import errorImage from './assets/error.png';
 import loadingImage from './assets/pokeball.png';
 import logo from './assets/logo.png';
@@ -14,6 +12,10 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { useFetchPokemonData } from './utils/hooks/useFetchPokemonData.jsx';
+import { lazy } from 'react';
+
+const Menu = lazy(() => import('./Menu'));
+const Profile = lazy(() => import('./Profile'));
 
 export default function App() {
   const pokemonCount = 151;
