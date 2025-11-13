@@ -10,8 +10,10 @@ export const useFadeIn = () => {
 export const useWiggle = (leftAngle = 40, rightAngle = 40, duration = 300) => {
   return useSpring({
     loop: { reverse: true },
-    from: { transform: `rotate(${-leftAngle}deg` },
+    from: { transform: `rotate(${-leftAngle}deg)` },
     to: { transform: `rotate(${rightAngle}deg)` },
+    reset: true,
+    pause: false,
     config: { duration: duration },
   });
 };
