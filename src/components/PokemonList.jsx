@@ -1,6 +1,7 @@
 import tinycolor from 'tinycolor2';
 import { capitalize } from '../utils/utils.jsx';
 import { memo } from 'react';
+import { typeColors } from '../utils/colors.jsx';
 
 function PokemonList({ pokemons, onPokemonClick }) {
   const lightenColor = (colorName) => {
@@ -16,27 +17,6 @@ function PokemonList({ pokemons, onPokemonClick }) {
     if (colorName === 'black') {
       return tinycolor(colorName).desaturate(0).lighten(40).toString();
     } else return tinycolor(colorName).desaturate(20).lighten(10).toString();
-  };
-
-  const typeColors = {
-    normal: '#A8A77A',
-    fire: '#EE8130',
-    water: '#6390F0',
-    electric: '#F7D02C',
-    grass: '#7AC74C',
-    ice: '#96D9D6',
-    fighting: '#C22E28',
-    poison: 'A33EA1',
-    ground: 'E2BF65',
-    flying: 'A98FF3',
-    psychic: 'F95587',
-    bug: 'A6B91A',
-    rock: 'B6A136',
-    ghost: '735797',
-    dragon: '6F35FC',
-    dark: '705746',
-    steel: 'B7B7CE',
-    fairy: 'D685AD',
   };
 
   const getTypeColor = (type) => {

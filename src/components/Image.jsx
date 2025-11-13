@@ -1,29 +1,9 @@
 import { useState, useEffect } from 'react';
 import tinycolor from 'tinycolor2';
 import { capitalize } from '../utils/utils.jsx';
+import { typeColors } from '../utils/colors.jsx';
 
 export default function Image({ pokemon }) {
-  const typeColors = {
-    normal: '#A8A77A',
-    fire: '#EE8130',
-    water: '#6390F0',
-    electric: '#F7D02C',
-    grass: '#7AC74C',
-    ice: '#96D9D6',
-    fighting: '#C22E28',
-    poison: '#A33EA1',
-    ground: '#E2BF65',
-    flying: '#A98FF3',
-    psychic: '#F95587',
-    bug: '#A6B91A',
-    rock: '#B6A136',
-    ghost: '#735797',
-    dragon: '#6F35FC',
-    dark: '#705746',
-    steel: '#B7B7CE',
-    fairy: '#D685AD',
-  };
-
   const getTypeColor = (type) => {
     const color = typeColors[type.toLowerCase()] || '#A8A878';
     return tinycolor(color).toString();
