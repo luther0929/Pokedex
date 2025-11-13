@@ -25,10 +25,6 @@ export default function Profile({ pokemons }) {
     setPokemmonId(id);
   }, []);
 
-  // const handlePokemonClick = (id) => {
-  //   setPokemmonId(id);
-  // };
-
   return (
     <div className="h-screen px-2 pt-16 lg:h-1/2">
       <div className="flex flex-col w-full h- lg:h-180 lg:flex-row">
