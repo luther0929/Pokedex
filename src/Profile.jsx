@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from './Image.jsx';
 import About from './About.jsx';
 import Stats from './Stats.jsx';
@@ -21,9 +21,13 @@ export default function Profile({ pokemons }) {
 
   const fadeIn = useFadeIn();
 
-  const handlePokemonClick = (id) => {
+  const handlePokemonClick = useCallback((id) => {
     setPokemmonId(id);
-  };
+  }, []);
+
+  // const handlePokemonClick = (id) => {
+  //   setPokemmonId(id);
+  // };
 
   return (
     <div className="h-screen px-2 pt-16 lg:h-1/2">

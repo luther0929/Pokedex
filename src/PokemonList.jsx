@@ -1,7 +1,8 @@
 import tinycolor from 'tinycolor2';
 import { capitalize } from './utils/utils.jsx';
+import { memo } from 'react';
 
-export default function PokemonList({ pokemons, onPokemonClick }) {
+function PokemonList({ pokemons, onPokemonClick }) {
   const lightenColor = (colorName) => {
     if (colorName === 'green' || colorName === 'purple') {
       return tinycolor(colorName).desaturate(50).lighten(50).toString();
@@ -94,3 +95,5 @@ export default function PokemonList({ pokemons, onPokemonClick }) {
     </div>
   );
 }
+
+export default memo(PokemonList);
