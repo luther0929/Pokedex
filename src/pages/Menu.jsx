@@ -1,6 +1,6 @@
 import tinycolor from 'tinycolor2';
 import { useState, useEffect } from 'react';
-import { capitalize } from './utils/utils.jsx';
+import { capitalize } from '../utils/utils.jsx';
 import { animated, useTransition } from 'react-spring';
 import { useNavigate } from 'react-router-dom';
 

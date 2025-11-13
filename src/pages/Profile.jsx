@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import Image from './Image.jsx';
-import About from './About.jsx';
-import Stats from './Stats.jsx';
-import Evolution from './Evolution.jsx';
-import PokemonList from './PokemonList.jsx';
+import Image from '../components/Image.jsx';
+import About from '../components/About.jsx';
+import Stats from '../components/Stats.jsx';
+import Evolution from '../components/Evolution.jsx';
+import PokemonList from '../components/PokemonList.jsx';
 import {
   useLocation,
   Route,
@@ -11,7 +11,7 @@ import {
   NavLink,
   Navigate,
 } from 'react-router-dom';
-import { useFadeIn } from './utils/animations.jsx';
+import { useFadeIn } from '../utils/animations.jsx';
 import { animated } from 'react-spring';
 
 export default function Profile({ pokemons }) {

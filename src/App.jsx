@@ -11,11 +11,11 @@ import {
   NavLink,
   Navigate,
 } from 'react-router-dom';
-import { useFetchPokemonData } from './utils/hooks/useFetchPokemonData.jsx';
+import { useFetchPokemonData } from './hooks/useFetchPokemonData.jsx';
 import { lazy } from 'react';
 
-const Menu = lazy(() => import('./Menu'));
-const Profile = lazy(() => import('./Profile'));
+const Menu = lazy(() => import('./pages/Menu.jsx'));
+const Profile = lazy(() => import('./pages/Profile.jsx'));
 
 export default function App() {
   const pokemonCount = 151;

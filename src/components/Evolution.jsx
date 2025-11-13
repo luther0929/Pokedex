@@ -1,6 +1,6 @@
 import { animated } from '@react-spring/web';
-import { useFadeIn } from './utils/animations.jsx';
-import { capitalize } from './utils/utils.jsx';
+import { useFadeIn } from '../utils/animations.jsx';
+import { capitalize } from '../utils/utils.jsx';
 
 export default function Evolution({ pokemon, onPokemonClick }) {
   const fadeIn = useFadeIn();

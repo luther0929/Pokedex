@@ -1,5 +1,5 @@
 import tinycolor from 'tinycolor2';
-import { capitalize } from './utils/utils.jsx';
+import { capitalize } from '../utils/utils.jsx';
 import { memo } from 'react';
 
 function PokemonList({ pokemons, onPokemonClick }) {

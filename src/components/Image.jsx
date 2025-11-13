@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import tinycolor from 'tinycolor2';
-import { capitalize } from './utils/utils.jsx';
+import { capitalize } from '../utils/utils.jsx';
 
 export default function Image({ pokemon }) {
   const typeColors = {
