@@ -1,18 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
-import Image from '../components/Image.jsx';
-import About from '../components/About.jsx';
-import Stats from '../components/Stats.jsx';
-import Evolution from '../components/Evolution.jsx';
-import PokemonList from '../components/PokemonList.jsx';
+import { useCallback, useState } from 'react';
 import {
-  useLocation,
+  Navigate,
+  NavLink,
   Route,
   Routes,
-  NavLink,
-  Navigate,
+  useLocation,
 } from 'react-router-dom';
-import { useFadeIn } from '../utils/animations.jsx';
 import { animated } from 'react-spring';
+
+import About from '../components/About.jsx';
+import Evolution from '../components/Evolution.jsx';
+import Image from '../components/Image.jsx';
+import PokemonList from '../components/PokemonList.jsx';
+import Stats from '../components/Stats.jsx';
+import { useFadeIn } from '../utils/animations.jsx';
 
 export default function Profile({ pokemons }) {
   const location = useLocation();

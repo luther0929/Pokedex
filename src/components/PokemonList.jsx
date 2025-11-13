@@ -1,7 +1,8 @@
-import tinycolor from 'tinycolor2';
-import { capitalize } from '../utils/utils.jsx';
 import { memo } from 'react';
+import tinycolor from 'tinycolor2';
+
 import { typeColors } from '../utils/colors.jsx';
+import { capitalize } from '../utils/utils.jsx';
 
 function PokemonList({ pokemons, onPokemonClick }) {
   const lightenColor = (colorName) => {

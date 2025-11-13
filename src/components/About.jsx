@@ -1,4 +1,5 @@
 import { animated } from '@react-spring/web';
+
 import { useFadeIn } from '../utils/animations.jsx';
 import { capitalize } from '../utils/utils.jsx';
 

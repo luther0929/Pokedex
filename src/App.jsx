@@ -1,18 +1,20 @@
 import './App.css';
-import errorImage from './assets/error.png';
-import loadingImage from './assets/pokeball.png';
-import logo from './assets/logo.png';
-import { useFadeInOut, useWiggle } from './utils/animations.jsx';
-import { animated } from 'react-spring';
+
+import { lazy } from 'react';
 import {
   BrowserRouter as Router,
+  Navigate,
+  NavLink,
   Route,
   Routes,
-  NavLink,
-  Navigate,
 } from 'react-router-dom';
+import { animated } from 'react-spring';
+
+import errorImage from './assets/error.png';
+import logo from './assets/logo.png';
+import loadingImage from './assets/pokeball.png';
 import { useFetchPokemonData } from './hooks/useFetchPokemonData.jsx';
-import { lazy } from 'react';
+import { useFadeInOut, useWiggle } from './utils/animations.jsx';
 
 const Menu = lazy(() => import('./pages/Menu.jsx'));
 const Profile = lazy(() => import('./pages/Profile.jsx'));
